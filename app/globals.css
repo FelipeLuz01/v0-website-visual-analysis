@@ -311,7 +311,7 @@ img {
 }
 
 .receta-card {
-  background-color: #FAF8F5;
+  background-color: #F0F4EC;
   border-radius: 20px;
   margin: 1.5rem auto;
   max-width: 340px;
@@ -395,12 +395,12 @@ img {
 .bonos {
   padding: 2rem 1rem;
   text-align: center;
-  background-color: #A8B89A;
+  background-color: #F5EFE6;
   margin: 0;
 }
 
 .bono-card {
-  background-color: #F5F0E8;
+  background-color: #F0F4EC;
   border-radius: 20px;
   margin: 1.5rem 0;
   padding: 1.5rem;
