@@ -1,6 +1,110 @@
+'use client';
+
+import React, { useState, useEffect } from "react"
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { Smile, Plus, UtensilsCrossed, Eye, Clock, ClipboardList } from 'lucide-react'
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Ana Oliveira",
+    message: "¡Hola Clara! Hice las ensaladas el domingo siguiendo tu paso a paso y hasta hoy están fresquitas 😍 ¡Estoy viciada, facilita demasiado la vida de quien trabaja todo el día!",
+    image: "/img/testimonial-1.jpg"
+  },
+  {
+    id: 2,
+    name: "Carol Andrade",
+    message: "Amando as recitas 🥰 nunca pensei que fosse conseguir manter a dieta assim, as saladas ficam lindas e super saborosas!",
+    image: "/img/testimonial-2.jpg"
+  },
+  {
+    id: 3,
+    name: "Sofia Ramírez",
+    message: "Hice mis primeras ensaladas en frasco y ¡quedaron hermosas! Hasta mi hija que no come nada verde está pidiendo jajaja gracias de verdad 💚",
+    image: "/img/testimonial-3.jpg"
+  },
+  {
+    id: 4,
+    name: "Elena Cruz",
+    message: "¡Amando las recetas! 😍 Nunca pensé que podría mantener la dieta así, las ensaladas quedan hermosas y súper ricas.",
+    image: "/img/testimonial-4.jpg"
+  },
+  {
+    id: 5,
+    name: "Paula Fernández",
+    message: "Clara, tengo que agradecerte 😍 comencé a hacer las ensaladas de tu curso y estoy impresionada, ¡quedan perfectas toda la semana! Nunca más me quedé sin comer saludable 👏",
+    image: "/img/testimonial-5.jpg"
+  }
+]
+
+function TestimonialCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+  }
+
+  const current = testimonials[currentIndex]
+
+  return (
+    <div className="carousel-container">
+      <button className="carousel-btn carousel-btn-prev" onClick={goToPrev}>‹</button>
+      
+      <div className="carousel-wrapper">
+        <Image 
+          src={current.image || "/placeholder.svg"}
+          alt={current.name}
+          width={3600}
+          height={4680}
+          className="carousel-image"
+          priority
+        />
+        
+        <div className="carousel-indicators">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              className={`indicator ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => setCurrentIndex(index)}
+            />
+          ))}
+        </div>
+      </div>
+
+      <button className="carousel-btn carousel-btn-next" onClick={goToNext}>›</button>
+    </div>
+  )
+}
+
+function ScrollLink({ href, children, className }: { href: string; children: React.ReactNode; className: string }) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+      window.history.pushState(null, '', href)
+    }
+  }
+
+  return (
+    <a href={href} onClick={handleClick} className={className}>
+      {children}
+    </a>
+  )
+}
 
 export default function Home() {
   return (
@@ -22,8 +126,8 @@ export default function Home() {
           src="/img/hero-salada.png" 
           alt="Ensalada en frasco deliciosa" 
           className="hero-salada"
-          width={350}
-          height={467}
+          width={500}
+          height={750}
           priority
         />
         <Link href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</Link>
@@ -83,7 +187,7 @@ export default function Home() {
           width={380}
           height={500}
         />
-        <Link href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</Link>
+        <ScrollLink href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</ScrollLink>
       </section>
 
       {/* Recetas */}
@@ -97,7 +201,7 @@ export default function Home() {
             width={340}
             height={453}
           />
-          <h3>ENSALADA REFRESCANTE<br />+ SALSA CÍTRICA</h3>
+          <h3 className="font-bold">ENSALADA REFRESCANTE<br />+ SALSA CÍTRICA</h3>
           <p>Conservación: 7 días<br />Calorías: 100 kcal</p>
         </div>
 
@@ -108,7 +212,7 @@ export default function Home() {
             width={340}
             height={453}
           />
-          <h3>ENSALADA CAPRESE</h3>
+          <h3 className="font-bold">ENSALADA CAPRESE</h3>
           <p>Conservación: 7 días<br />Calorías: 120 kcal</p>
         </div>
 
@@ -119,11 +223,11 @@ export default function Home() {
             width={340}
             height={453}
           />
-          <h3>ENSALADA CAESAR<br />+ SALSA ORIGINAL</h3>
+          <h3 className="font-bold">ENSALADA CAESAR<br />+ SALSA ORIGINAL</h3>
           <p>Conservación: 7 días<br />Calorías: 115 kcal</p>
         </div>
 
-        <Link href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</Link>
+        <ScrollLink href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</ScrollLink>
 
         <div className="receta-card">
           <Image 
@@ -132,7 +236,7 @@ export default function Home() {
             width={340}
             height={453}
           />
-          <h3>ENSALADA BIG MAC<br />+ SALSA ESPECIAL</h3>
+          <h3 className="font-bold">ENSALADA BIG MAC<br />+ SALSA ESPECIAL</h3>
           <p>Conservación: 7 días<br />Calorías: 180 kcal</p>
         </div>
 
@@ -143,7 +247,7 @@ export default function Home() {
             width={340}
             height={453}
           />
-          <h3>ENSALADA MEDITERRÁNEA<br />+ SALSA AGRIDULCE</h3>
+          <h3 className="font-bold">ENSALADA MEDITERRÁNEA<br />+ SALSA AGRIDULCE</h3>
           <p>Conservación: 7 días<br />Calorías: 120 kcal</p>
         </div>
 
@@ -154,7 +258,7 @@ export default function Home() {
             width={340}
             height={453}
           />
-          <h3>ENSALADA TOSCANA<br />+ SALSA SICILIANA</h3>
+          <h3 className="font-bold">ENSALADA TOSCANA<br />+ SALSA SICILIANA</h3>
           <p>Conservación: 7 días<br />Calorías: 130 kcal</p>
         </div>
 
@@ -165,11 +269,11 @@ export default function Home() {
             width={340}
             height={453}
           />
-          <h3>ENSALADA RÚSTICA<br />+ MOSTAZA Y MIEL</h3>
+          <h3 className="font-bold">ENSALADA RÚSTICA<br />+ MOSTAZA Y MIEL</h3>
           <p>Conservación: 7 días<br />Calorías: 160 kcal</p>
         </div>
 
-        <Link href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</Link>
+        <ScrollLink href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</ScrollLink>
       </section>
 
       {/* Salsas */}
@@ -189,7 +293,14 @@ export default function Home() {
           width={400}
           height={400}
         />
-        <Link href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</Link>
+        <Image 
+          src="/img/12.webp" 
+          alt="Salada em frasco com camadas" 
+          className="section-img"
+          width={400}
+          height={400}
+        />
+        <ScrollLink href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</ScrollLink>
       </section>
 
       {/* Video Preview */}
@@ -218,8 +329,8 @@ export default function Home() {
             width={300}
             height={300}
           />
-          <h3>BONO 1:</h3>
-          <h4>SMOOTHIES DETOX<br />20 RECETAS</h4>
+          <h3 className="font-extrabold">BONO 1:</h3>
+          <h4 className="font-bold">SMOOTHIES DETOX<br />20 RECETAS</h4>
           <p><span className="precio-tachado">$29.90</span> <span className="gratis">¡HOY ES GRATIS!</span></p>
         </div>
 
@@ -230,8 +341,8 @@ export default function Home() {
             width={300}
             height={300}
           />
-          <h3>BONO 2:</h3>
-          <h4>SHOTS MATINALES<br />5 RECETAS</h4>
+          <h3 className="font-extrabold">BONO 2:</h3>
+          <h4 className="font-bold">SHOTS MATINALES<br />5 RECETAS</h4>
           <p><span className="precio-tachado">$29.90</span> <span className="gratis">¡HOY ES GRATIS!</span></p>
         </div>
 
@@ -242,12 +353,12 @@ export default function Home() {
             width={300}
             height={300}
           />
-          <h3>BONO 3:</h3>
-          <h4>AGUAS SABORIZADAS<br />15 RECETAS</h4>
+          <h3 className="font-bold">BONO 3:</h3>
+          <h4 className="font-bold">AGUAS SABORIZADAS<br />15 RECETAS</h4>
           <p><span className="precio-tachado">$29.90</span> <span className="gratis">¡HOY ES GRATIS!</span></p>
         </div>
 
-        <Link href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</Link>
+        <ScrollLink href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</ScrollLink>
       </section>
 
       {/* Problemas */}
@@ -268,11 +379,11 @@ export default function Home() {
         <div className="oferta-card">
           <h2>ENSALADAS EN FRASCO +<br /><strong>SALSAS IRRESISTIBLES</strong></h2>
           <Image 
-            src="/img/16.webp" 
+            src="/images/mockup-ensaladas.jpeg" 
             alt="Mockup del producto" 
             className="mockup-img"
-            width={200}
-            height={250}
+            width={300}
+            height={380}
           />
           
           <ul className="lista-incluye">
@@ -283,7 +394,7 @@ export default function Home() {
             <li>+ 15 RECETAS DE AGUAS SABORIZADAS</li>
           </ul>
 
-          <p className="precio-original">De <s>$129.00</s>...</p>
+          <p className="precio-original">De <s>$129.00</s></p>
           <p className="precio-parcelas">por 6x de<br /><span className="valor">$5.66</span></p>
           <p className="precio-vista">O $29.90 DE CONTADO</p>
           
@@ -294,16 +405,21 @@ export default function Home() {
 
       {/* Sobre */}
       <section className="sobre">
-        <h2>ENSALADAS DE LA NUTRI<br /><strong>AURORA PRADO</strong></h2>
+        <h2>ENSALADAS DE LA NUTRI<br /><strong>CLARA MARTÍNEZ </strong></h2>
         <Image 
-          src="/img/1.png" 
+          src="/img/aurora-prado.jpg" 
           alt="Aurora Prado" 
           className="foto-aurora"
-          width={280}
-          height={150}
+          width={420}
+          height={540}
         />
         <p>Mis recetas de Ensaladas en Frasco y Salsas Irresistibles siempre fueron un éxito en internet. Decidí reunir las 60 mejores recetas en un solo lugar y compartir este conocimiento contigo también.</p>
+      </section>
+
+      {/* Testimonial */}
+      <section className="testimonial">
         <p className="testimonios-titulo"><strong>Mira los mensajes</strong> que recibo casi todos los días:</p>
+        <TestimonialCarousel />
       </section>
 
       {/* FAQ */}
@@ -323,6 +439,11 @@ export default function Home() {
         <details className="faq-item">
           <summary>¿Necesito frascos especiales?</summary>
           <p>¡No! Funciona con cualquier frasco de vidrio que tengas en casa. No necesitas comprar nada especial.</p>
+        </details>
+
+        <details className="faq-item">
+          <summary>¿Cómo debo lavar y preparar los ingredientes?</summary>
+          <p>En el curso incluimos un módulo completo sobre el proceso correcto de lavar los ingredientes. Te enseñamos técnicas para secar bien las hojas para que tu ensalada no se humedezca, cómo desinfectar verduras, y todos los pasos para que tus ingredientes duren frescos 7 días.</p>
         </details>
 
         <details className="faq-item">
@@ -363,7 +484,7 @@ export default function Home() {
 
       {/* CTA Final */}
       <section className="cta-final">
-        <Link href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</Link>
+        <ScrollLink href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</ScrollLink>
       </section>
 
       {/* Footer */}
