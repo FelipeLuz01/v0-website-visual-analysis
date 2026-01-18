@@ -903,12 +903,11 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
-  max-width: 600px !important;
   margin: 2rem auto;
   flex-direction: row;
-  padding: 0 1rem;
+  padding: 0;
 }
 
 .carousel-wrapper {
@@ -923,58 +922,11 @@ footer {
 .carousel-image {
   width: 100%;
   height: auto;
-  max-height: 750px !important;
   border-radius: 16px;
   object-fit: contain;
   border: 3px solid #4A5D3A;
   display: block;
   margin: 0 auto 1rem;
-}
-
-/* Desktop - carrossel grande */
-@media (min-width: 768px) {
-  .carousel-container {
-    max-width: 550px !important;
-    padding: 0;
-  }
-  
-  .carousel-image {
-    max-height: 700px !important;
-  }
-  
-  .carousel-btn {
-    width: 52px;
-    height: 52px;
-    font-size: 2rem;
-  }
-}
-
-/* Mobile - carrossel bem grande */
-@media (max-width: 767px) {
-  .carousel-container {
-    max-width: 95vw !important;
-    width: 95vw !important;
-    padding: 0 0.25rem !important;
-    gap: 0.5rem !important;
-  }
-  
-  .carousel-wrapper {
-    width: 100% !important;
-  }
-  
-  .carousel-image {
-    max-height: none !important;
-    height: auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  
-  .carousel-btn {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.4rem !important;
-    flex-shrink: 0;
-  }
 }
 
 .carousel-indicators {

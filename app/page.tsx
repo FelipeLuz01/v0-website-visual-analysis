@@ -60,7 +60,7 @@ function TestimonialCarousel() {
   const current = testimonials[currentIndex]
 
   return (
-    <div className="carousel-container w-[95vw] max-w-[95vw] md:w-auto md:max-w-[550px]">
+    <div className="carousel-container">
       <button className="carousel-btn carousel-btn-prev" onClick={goToPrev}>‹</button>
       
       <div className="carousel-wrapper">
@@ -69,7 +69,7 @@ function TestimonialCarousel() {
           alt={current.name}
           width={3600}
           height={4680}
-          className="carousel-image w-full max-w-full"
+          className="carousel-image"
           priority
         />
         
