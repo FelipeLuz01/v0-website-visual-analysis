@@ -107,7 +107,6 @@ function ScrollLink({ href, children, className }: { href: string; children: Rea
 }
 
 export default function Home() {
-  console.log("[v0] Home component rendering");
   return (
     <div className="container">
       {/* Hero Section */}
