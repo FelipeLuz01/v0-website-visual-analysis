@@ -483,14 +483,10 @@ export default function Home() {
       </section>
 
       {/* CTA Final */}
-      <section className="cta-final">
-        <ScrollLink href="#comprar" className="btn-primary">¡QUIERO LAS RECETAS!</ScrollLink>
-      </section>
+      
 
       {/* Footer */}
-      <footer>
-        <p>© 2025 Ensaladas en Frasco. Todos los derechos reservados.</p>
-      </footer>
+      
     </div>
   )
 }
